@@ -16,7 +16,9 @@ Text here
 
 ## Introduction
 
-Text here
+Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist and often consist of some sort of deep learning architecture [SOURCE] but there one main problem with this type of architures namely their high computational costs which on itself leads a slow way of operating these methods. This make most of the existing methods for low-light image enhancement non-practical solutions. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
+In this blog post we will put the robostness of their model to the test by focussing on the models -- brede accepetatie? -- when it comes to the pre-processing phase. The way in which we will be testig this can be summarized as...
+
 (incl. motivation)
 
 ## Method
