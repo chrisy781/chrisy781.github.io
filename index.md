@@ -17,7 +17,7 @@ Text here
 ## Introduction
 
 Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist and often consist of some sort of deep learning architecture [SOURCE] but there one main problem with this type of architures namely their high computational costs which on itself leads a slow way of operating these methods. This make most of the existing methods for low-light image enhancement non-practical solutions. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
-In this blog post we will put the robostness of their model to the test by focussing on the models -- brede accepetatie? -- when it comes to the pre-processing phase. The way in which we will be testig this can be summarized as...
+In this blog post we will test the researcher's sensitivity to variance to the input images. This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact that may have on the quality of the models output images. Our reproduciblity project will thus be focussed on the pre-processing phase. The incentive for this form of reproducibility project is the growing concern in the Deep Learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. [SOURCE?] Miss ook nog woordje WE weghalen, dat staat vgm in de writing guideline...
 
 (incl. motivation)
 
