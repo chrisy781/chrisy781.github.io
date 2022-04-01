@@ -52,21 +52,15 @@ Syntax highlighted code block
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
-Syntax highlighted code block
+def add_noise(color, scale):
+    shape = color.shape
+    noise = np.random.normal(loc=0.0, scale=scale, size=shape)
+    color = np.add(color, noise).astype(int)
+    return color
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+r = add_noise(r, 0.5)
+g = add_noise(g, 0.5)
+b = add_noise(b, 0.5)
 ```
 
 #### Adding brightness code snippet
