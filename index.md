@@ -89,8 +89,24 @@ Text here
 
 ## Results 
 
-Text here
-(of both reseach goals)
+The following section will describe the findings of how the deep learning architecture generalizes to images which differ from the dataset that has been trained for. First the previously shown method to add red, green and blue noise to the image and after that the addition of brightness to the image will be used to see if the output of the net improves the quality again, stays the same or worsen it.
+
+### Addition of Noise
+
+The process of adding noise has been already described above in [SECTION__LINK]. It basically includes first converting the raw image to a RGB image, for which then the coulour values can be adjusted and then fed back in Bayer format to the neural network.
+
+Three different adjustments that change the red, green and blue values in the same way have been investigated and it has been found that the net does not generalize very well to them.
+Firstly an added noise of 0.1[_________ADD_DIMENSION_____] to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three. 
+
+![rgb0.1] (/Images/Chairs_rgb0.5.png)
+
+To the left the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code, before any changes have been made to it. The right most image is showing the RGB image after the noise of 0.1 over the entire colour spectrum has been added.
+
+Firstly an added noise of 0.1[_________ADD_DIMENSION_____] has been found to be the edge of where the human eye can detect the added noise in the input image, even when zooming in with a multiple of three. S
+
+Different images have been tried and tested with similar results.
+
+### Addition of Brightness
 
 ## Discussion
 
