@@ -94,6 +94,10 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 ![After Net Original] (/Images/chairs_or_m8.jpg)   ![After Net RGB 0.0] (/Images/chairs_rgb0.0m8.jpg)
+<p align="center">
+  <img src="/Images/chairs_or_m8.jpg" height="380">
+  <img src="/Images/chairs_rgb0.0m8.jpg" height="380">
+</p>
 
 Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (left) and the unprocessed output of our added code (right) are exactly the same.
 
@@ -103,8 +107,6 @@ The process of adding noise has been already described above in [SECTION__LINK].
 
 Three different adjustments that change the red, green and blue values in the same way have been investigated and it has been found that the net does not generalize very well to them.
 
-![Before Net RGB 0.1] (https://github.com/chrisy781/chrisy781.github.io/blob/main/Images/Chairs_rgb0.1.png)
-<img src="chrisy781.github.io/Images/Chairs_rgb0.1.png" class="img-responsive" alt=""> </div>
 <p align="center">
   <img src="https://github.com/chrisy781/chrisy781.github.io/blob/main/Images/Chairs_rgb0.1.png" height="380">
 </p>
