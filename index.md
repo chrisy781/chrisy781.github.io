@@ -126,7 +126,7 @@ It can be seen that in the restored image all features can still be seen in thei
 See above the restored image without added noise.
 
 <p align="center">
-  <img src="/Images/chairs_rgb0.5.png" height="380">
+  <img src="/Images/Chairs_rgb0.5.png" height="380">
 </p>
 
 Increasing the added noise to a 0.5 variance on a standard distribution has been found to be the edge of where the human eye can detect the added noise in the input image. 
