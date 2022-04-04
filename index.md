@@ -105,6 +105,9 @@ Three different adjustments that change the red, green and blue values in the sa
 
 ![Before Net RGB 0.1] (https://github.com/chrisy781/chrisy781.github.io/blob/main/Images/Chairs_rgb0.1.png)
 <img src="chrisy781.github.io/Images/Chairs_rgb0.1.png" class="img-responsive" alt=""> </div>
+<p align="center">
+  <img src="https://github.com/chrisy781/chrisy781.github.io/blob/main/Images/Chairs_rgb0.1.png" height="380">
+</p>
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
 To the left, the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code before any changes have been made to it. Slight differences can be detected between these two rightmost pictures. This comes from the fact that we had to tune the parameters for conversion ourselves for the middle image, whereas the standard programs included in opencv _OR RAWPY??_ perform a little better. The right-most image is showing the RGB image after the noise of 0.1 variance on a standard distribution over the entire colour spectrum has been added. It can be seen that the two rightmost images appear visually exactly the same. 
