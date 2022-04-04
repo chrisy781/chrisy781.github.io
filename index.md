@@ -103,7 +103,7 @@ The process of adding noise has been already described above in [SECTION__LINK].
 
 Three different adjustments that change the red, green and blue values in the same way have been investigated and it has been found that the net does not generalize very well to them.
 
-![Before Net RGB 0.1] (chrisy781.github.io/Images/Chairs_rgb0.1.png)
+![Before Net RGB 0.1] (https://github.com/chrisy781/chrisy781.github.io/blob/main/Images/Chairs_rgb0.1.png)
 <img src="chrisy781.github.io/Images/Chairs_rgb0.1.png" class="img-responsive" alt=""> </div>
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
