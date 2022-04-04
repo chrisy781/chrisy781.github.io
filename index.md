@@ -93,7 +93,7 @@ The following section will describe the findings of how the deep learning archit
 
 ### Zero input validation
 
-![After Net Original] (/Images/Chairs_m_8.0.png)   ![After Net RGB 0.0] (/Images/Chairs_rgb0.0_m_8.0.png)
+![After Net Original] (/Images/chairs_or_m8.png)   ![After Net RGB 0.0] (/Images/Chairs_rgb0.0_m_8.0.png)
 
 Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (left) and the unprocessed output of our added code (right) are exactly the same.
 
