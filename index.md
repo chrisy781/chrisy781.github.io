@@ -93,12 +93,11 @@ The following section will describe the findings of how the deep learning archit
 
 ### Zero input validation
 
-![After Net Original] (/Images/chairs_or_m8.jpg)   ![After Net RGB 0.0] (/Images/chairs_rgb0.0m8.jpg)
 <p align="center">
   <img src="/Images/chairs_or_m8.jpg" height="380">  <img src="/Images/chairs_rgb0.0m8.jpg" height="380">
 </p>
 
-Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (left) and the unprocessed output of our added code (right) are exactly the same.
+Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (top) and the unprocessed output of our added code (lower) are exactly the same.
 
 ### Addition of Noise
 
@@ -107,27 +106,35 @@ The process of adding noise has been already described above in [SECTION__LINK].
 Three different adjustments that change the red, green and blue values in the same way have been investigated and it has been found that the net does not generalize very well to them.
 
 <p align="center">
-  <img src="https://github.com/chrisy781/chrisy781.github.io/blob/main/Images/Chairs_rgb0.1.png" height="380">
+  <img src="/Images/Chairs_rgb0.1.png" height="380">
 </p>
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
 To the left, the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code before any changes have been made to it. Slight differences can be detected between these two rightmost pictures. This comes from the fact that we had to tune the parameters for conversion ourselves for the middle image, whereas the standard programs included in opencv _OR RAWPY??_ perform a little better. The right-most image is showing the RGB image after the noise of 0.1 variance on a standard distribution over the entire colour spectrum has been added. It can be seen that the two rightmost images appear visually exactly the same. 
 From this comparison, one might preclude that the neural network would give out exactly the same picture as for an unprocessed picture, but that is unfortunately not true.
 
-![After Net RGB 0.1] (/Images/chairs_rgb0.1m8.jpg)
+<p align="center">
+  <img src="/Images/chairs_rgb0.1m8.jpg" height="380">
+</p>
 
 It can be seen that in the restored image all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear. 
 
-![After Net Unprocessed] (/Images/chairs_rgb0.0m8.jpg)
+<p align="center">
+  <img src="/Images/chairs_rgb0.0m8.jpg" height="380">
+</p>
 
 See above the restored image without added noise.
 
-![Before Net RGB 0.5] (/Images/chairs_rgb0.5.png)
+<p align="center">
+  <img src="/Images/chairs_rgb0.5.png" height="380">
+</p>
 
 Increasing the added noise to a 0.5 variance on a standard distribution has been found to be the edge of where the human eye can detect the added noise in the input image. 
 The added noise can best be seen in the white area of the window next to the bike. A light hue of red is laid over the originally white area.
 
-![After Net RGB 0.5] (/Images/chairs_rgb0.5m8.jpg)
+<p align="center">
+  <img src="/Images/chairs_rgb0.5m8.jpg" height="380">
+</p>
 
 When using this as an input image for the network the pixellation becomes now strongly visible in the output as can be seen in above image. 
 At a variance of 1 the features within the image start to be obscured by the noise and further increasing the variance leads to the output becoming more and more pixellated until no feature can be recognized anymore at a variance of 3. 
