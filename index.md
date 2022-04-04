@@ -89,22 +89,46 @@ Text here
 
 ## Results 
 
-The following section will describe the findings of how the deep learning architecture generalizes to images which differ from the dataset that has been trained for. First the previously shown method to add red, green and blue noise to the image and after that the addition of brightness to the image will be used to see if the output of the net improves the quality again, stays the same or worsen it.
+The following section will describe the findings of how the deep learning architecture generalizes to images which differ from the dataset that has been trained for. First the previously shown method to add red, green and blue noise to the image and after that the addition of brightness to the image will be used to see if the output of the net improves the quality again, stays the same or worsens it.
+
+### Zero input validation
+
+![After Net Original] (/Images/Chairs_m_8.0.png)   ![After Net RGB 0.0] (/Images/Chairs_rgb0.0_m_8.0.png)
+
+Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (left) and the unprocessed output of our added code (right) are exactly the same.
 
 ### Addition of Noise
 
-The process of adding noise has been already described above in [SECTION__LINK]. It basically includes first converting the raw image to a RGB image, for which then the coulour values can be adjusted and then fed back in Bayer format to the neural network.
+The process of adding noise has been already described above in [SECTION__LINK]. It basically includes first converting the raw image to a RGB image, for which the colour values can be adjusted and then fed back in Bayer format to the neural network.
 
 Three different adjustments that change the red, green and blue values in the same way have been investigated and it has been found that the net does not generalize very well to them.
-Firstly an added noise of 0.1[_________ADD_DIMENSION_____] to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three. 
 
-![rgb0.1] (/Images/Chairs_rgb0.5.png)
+![Before Net RGB 0.1] (/Images/Chairs_rgb0.1.png)
 
-To the left the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code, before any changes have been made to it. The right most image is showing the RGB image after the noise of 0.1 over the entire colour spectrum has been added.
+Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
+To the left, the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code before any changes have been made to it. Slight differences can be detected between these two rightmost pictures. This comes from the fact that we had to tune the parameters for conversion ourselves for the middle image, whereas the standard programs included in opencv _OR RAWPY??_ perform a little better. The right-most image is showing the RGB image after the noise of 0.1 variance on a standard distribution over the entire colour spectrum has been added. It can be seen that the two rightmost images appear visually exactly the same. 
+From this comparison, one might preclude that the neural network would give out exactly the same picture as for an unprocessed picture, but that is unfortunately not true.
 
-Firstly an added noise of 0.1[_________ADD_DIMENSION_____] has been found to be the edge of where the human eye can detect the added noise in the input image, even when zooming in with a multiple of three. S
+![After Net RGB 0.1] (/Images/chairs_rgb0.1_m_8.0.png)
 
-Different images have been tried and tested with similar results.
+It can be seen that in the restored image all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear. 
+
+![After Net Unprocessed] (/Images/chairs_rgb0.0_m_8.0.png)
+
+See above the restored image without added noise.
+
+![Before Net RGB 0.5] (/Images/chairs_rgb0.5.png)
+
+Increasing the added noise to a 0.5 variance on a standard distribution has been found to be the edge of where the human eye can detect the added noise in the input image. 
+The added noise can best be seen in the white area of the window next to the bike. A light hue of red is laid over the originally white area.
+
+![After Net RGB 0.5] (/Images/chairs_rgb0.5_m_8.0.png)
+
+When using this as an input image for the network the pixellation becomes now strongly visible in the output as can be seen in above image. 
+At a variance of 1 the features within the image start to be obscured by the noise and further increasing the variance leads to the output becoming more and more pixellated until no feature can be recognized anymore at a variance of 3. 
+
+In their published paper 'Restoring Extremely Dark Images in Real Time' M. Lamba and K. Mitra claim that their method 'generalizes better than the state-of-the-art' methods of other researchers without training. 
+In our work we have tried and tested different images and noise settings with similar results. This means that for the addition of noise it seems that the claimed good generalization without new training lacks of substance.
 
 ### Addition of Brightness
 
