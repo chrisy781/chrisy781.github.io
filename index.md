@@ -27,25 +27,17 @@ Explination/summary of the method
 
 #### RAW to RGB conversion code snippet
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The input used by the neural network is in the form of a raw image, which is encoded using bayer style color representation. 
+This means that every data point in the image array is one color, instead of the usual three in the case of rgb.
+Colors are encoded using a fixed pattern, namely:
+ [R , G]
+ [G , B]
+This pattern repeats over the full width and height of the image. Retrieving colors can thus be done by extrapolating these values where every 2x2 block of data points as shown above is converted into 1 rgb pixel.
 
-```markdown
-Syntax highlighted code block
+The bayer encoded image sadly does not work with strict values between 0 and 255, but rather a range between 0 and 65536 (16 bit), with the vast majority of numbers are being packed in the range [410,440]. A scaled distribution correction is used to transform all bayer values from the 16 bit bayer range to the 8 bit rgb spectrum.
+Parameters used for this scaling (like minimum and maximum bayer range corresponding to 0 and 255 in the rgb spectrum) are fine-tuned, so that rgb converted images resemble almost perfectly the 'processed' raw images that photographic software would yield.
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
+In the rgb spectrum, intuitive changes can now be applied to the image. Possible preprocessing adaptations are explained in the chapters below. The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
 
 #### Adding noise code snippet
 
