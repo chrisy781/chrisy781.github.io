@@ -23,9 +23,14 @@ In this blog post we will test the researcher's sensitivity to variance to the i
 
 ## Method
 
-Explination/summary of the method
+Before going into to much detail we try to give a structured overview about the modifaction we made to the model from the research paper. 
+It starts with the RAW input image which is converted (process A) to a RGB image which is plotted. In process B we use code to make the modifications to the (RGB) image. This modified RGB image is also plotted (3) and is later converted back to a RAW file in process C. This modified RAW images is plotted as well in order to make sure the conversion for RGB to RAW was done succesfully. Finally this RAW file from step 4 is used in the original model from the paper, the final result is a JPEG file (step 5).
 
-#### RAW to RGB conversion code snippet
+<p align="center">
+  <img src="/Images/process_overview.png" height="380">  <img src="/Images/process_overview.png" height="380">
+</p>
+
+#### (A) RAW to RGB conversion code snippet
 
 The input used by the neural network is in the form of a raw image, which is encoded using bayer style color representation. 
 This means that every data point in the image array is one color, instead of the usual three in the case of rgb.
@@ -39,7 +44,7 @@ Parameters used for this scaling (like minimum and maximum bayer range correspon
 
 In the rgb spectrum, intuitive changes can now be applied to the image. Possible preprocessing adaptations are explained in the chapters below. The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
 
-#### Adding noise code snippet
+#### (B) Adding noise code snippet
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
@@ -55,7 +60,7 @@ g = add_noise(g, 0.5)
 b = add_noise(b, 0.5)
 ```
 
-#### Adding brightness code snippet
+#### (B) Adding brightness code snippet
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 ```markdown
@@ -76,10 +81,25 @@ Syntax highlighted code block
 [Link](url) and ![Image](src)
 ```
 
+#### (C) RGB to RAW conversion code
+
+Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+```markdown
+- Bulleted
+- List
+
+1. Numbered
+2. List
+
+**Bold** and _Italic_ and `Code` text
+
+[Link](url) and ![Image](src)
+```
+
 Text here
 (incl. code snippets)
 
-## Results 
+## (5) Results 
 
 The following section will describe the findings of how the deep learning architecture generalizes to images which differ from the dataset that has been trained for. First the previously shown method to add red, green and blue noise to the image and after that the addition of brightness to the image will be used to see if the output of the net improves the quality again, stays the same or worsens it.
 
