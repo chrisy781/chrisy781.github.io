@@ -44,6 +44,19 @@ Parameters used for this scaling (like minimum and maximum bayer range correspon
 
 In the rgb spectrum, intuitive changes can now be applied to the image. Possible preprocessing adaptations are explained in the chapters below. The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
 
+[HIER NOG DE CODE TOEVOEGEN?]
+```markdown
+- Bulleted
+- List
+
+1. Numbered
+2. List
+
+**Bold** and _Italic_ and `Code` text
+
+[Link](url) and ![Image](src)
+```
+
 #### (B) Adding noise code snippet
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
