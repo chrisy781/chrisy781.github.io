@@ -24,7 +24,7 @@ In this blog post we will test the researcher's sensitivity to variance to the i
 ## Method
 
 Before going into to much detail we try to give a structured overview about the modifaction we made to the model from the research paper. 
-It starts with the RAW input image which is converted (process A) to a RGB image which is plotted. In process B we use code to make the modifications to the (RGB) image. This modified RGB image is also plotted (3) and is later converted back to a RAW file in process C. This modified RAW images is plotted as well in order to make sure the conversion for RGB to RAW was done succesfully. Finally this RAW file from step 4 is used in the original model from the paper, the final result is a JPEG file (step 5).
+It starts with the RAW input image which is converted - in process A - to a RGB image which is plotted (step 2). In process B we use code to make the modifications to the (RGB) image. This modified RGB image is also plotted (step 3) and is later converted back to a RAW file in process C. This modified RAW images is plotted as well (step 4) in order to make sure the conversion from RGB to RAW was done succesfully. Finally this RAW file from step 4 is used process D - this is the original model from the paper - the final result is a JPEG file (step 5).
 
 <p align="left">
   <img src="/Images/process_overview.png" height="300">  
