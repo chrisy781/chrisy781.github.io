@@ -120,12 +120,8 @@ The following section will describe the findings of how the deep learning archit
 
 ### Zero input validation
 
-<figure>
-<img src="/Images/chairs_or_m8.jpg" height="190"> <img src="/Images/chairs_rgb0.0m8.jpg" height="190"/>
-<figcaption align = "center"><b>Fig.N1 - Original image restored with the network of Lamba et al. without preprocessing from us</b></figcaption>
-</figure>
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" height="190"/>  <img src="/Images/chairs_rgb0.0m8.jpg" height="190"/>
+  <img src="/Images/chairs_or_m8.jpg" height="250"/>  <img src="/Images/chairs_rgb0.0m8.jpg" height="250"/>
 </p>
 <p align = "center">
 Fig.N1 - Original image restored with the network of Lamba et al. (on the left) and the restored image after being converted by our code without making adjustments to the image.
