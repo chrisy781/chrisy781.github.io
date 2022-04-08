@@ -121,7 +121,7 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" width="410"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="410"/>
+  <img src="/Images/chairs_or_m8.jpg" width="420"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="420"/>
 </p>
 <p align = "center">
 <b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
@@ -139,7 +139,7 @@ Three different adjustments that change the red, green and blue values in the sa
   <img src="/Images/Chairs_rgb0.1.png">
 </p>
 <p align = "center">
-<b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of 0.1 on the red, green and blue channels (right). All images shown are from before being restored by the network) . </b>
+<b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of variance 0.1 on the red, green and blue channels (right). All images shown are from before being restored by the network. </b>
 </p>
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
@@ -150,24 +150,29 @@ From this comparison, one might preclude that the neural network would give out 
   <img src="/Images/chairs_rgb0.1m8.jpg" width="380"> <img src="/Images/chairs_rgb0.0m8.jpg" width="380">
 </p>
 <p align = "center">
-<b> Fig.N1 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
+<b> Fig.N3 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
 </p>
 
-
-It can be seen that in the restored image all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear.
+It can be seen that in the restored image in Figure.N3 to the left all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear.
 
 <p align="center">
   <img src="/Images/Chairs_rgb0.5.png" height="380">
 </p>
+<p align = "center">
+<b> Fig.N4 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of variance 0.5 on the red, green and blue channels (right). All images shown are from before being restored by the network. </b>
+</p>
 
-Increasing the added noise to a 0.5 variance on a standard distribution has been found to be the edge of where the human eye can detect the added noise in the input image. 
+As can be seen above in Figure.N4, increasing the added noise to a 0.5 variance on a standard distribution has been found to be the edge of where the human eye can detect the added noise in the input image. 
 The added noise can best be seen in the white area of the window next to the bike. A light hue of red is laid over the originally white area.
 
 <p align="center">
   <img src="/Images/chairs_rgb0.5m8.jpg" height="380">
 </p>
+<p align = "center">
+<b> Fig.N5 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. </b>
+</p>
 
-When using this as an input image for the network the pixellation becomes now strongly visible in the output as can be seen in above image. 
+When using this as an input image for the network the pixellation becomes now strongly visible in the output as can be seen in Figure.N5 above. 
 At a variance of 1 the features within the image start to be obscured by the noise and further increasing the variance leads to the output becoming more and more pixellated until no feature can be recognized anymore at a variance of 3. 
 
 In their published paper 'Restoring Extremely Dark Images in Real Time' M. Lamba and K. Mitra claim that their method 'generalizes better than the state-of-the-art' methods of other researchers without training. 
