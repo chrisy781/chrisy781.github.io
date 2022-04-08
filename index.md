@@ -61,7 +61,7 @@ In the rgb spectrum, intuitive changes can now be applied to the image. Possible
 
 #### (B) Adding noise code snippet
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Below an excerpt of the code for adding noise shows the approach that was taking to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. fThe pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
 
 ```markdown
 def add_noise(color, scale):
@@ -136,7 +136,7 @@ The process of adding noise has been already described above in [SECTION__LINK].
 Three different adjustments that change the red, green and blue values in the same way will be shown, from which it has been found that the net does not generalize very well to them. Other adjustments as different images have been investigated with similar results.
 
 <p align="center">
-  <img src="/Images/Chairs_rgb0.1.png" width="820">
+  <img src="/Images/Chairs_rgb0.1.png">
 </p>
 <p align = "center">
 <b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of variance 0.1 on the red, green and blue channels (right). All images shown are from before being restored by the network. </b>
