@@ -121,22 +121,25 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" height="250"/>  <img src="/Images/chairs_rgb0.0m8.jpg" height="250"/>
+  <img src="/Images/chairs_or_m8.jpg" width="350"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="350"/>
 </p>
 <p align = "center">
 <b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
 </p>
 
-Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (top) and the unprocessed output of our added code (lower) are exactly the same.
+Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images in Figure.N1 show that the original output (left) and the unprocessed output of our added code (right) are exactly the same.
 
 ### Addition of Noise
 
 The process of adding noise has been already described above in [SECTION__LINK]. It basically includes first converting the raw image to a RGB image, for which the colour values can be adjusted and then fed back in Bayer format to the neural network.
 
-Three different adjustments that change the red, green and blue values in the same way have been investigated and it has been found that the net does not generalize very well to them.
+Three different adjustments that change the red, green and blue values in the same way will be shown, from which it has been found that the net does not generalize very well to them. Other adjustments as different images have been investigated with similar results.
 
 <p align="center">
-  <img src="/Images/Chairs_rgb0.1.png" height="380">
+  <img src="/Images/Chairs_rgb0.1.png" height="500">
+</p>
+<p align = "center">
+<b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle and the image after adding noise or 0.1 on red, green and blue channels (right). All images shown are from before being restored by the network) . </b>
 </p>
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
