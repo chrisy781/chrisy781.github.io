@@ -121,7 +121,7 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" width="350"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="350"/>
+  <img src="/Images/chairs_or_m8.jpg" width="380"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="380"/>
 </p>
 <p align = "center">
 <b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
@@ -136,7 +136,7 @@ The process of adding noise has been already described above in [SECTION__LINK].
 Three different adjustments that change the red, green and blue values in the same way will be shown, from which it has been found that the net does not generalize very well to them. Other adjustments as different images have been investigated with similar results.
 
 <p align="center">
-  <img src="/Images/Chairs_rgb0.1.png" height="500">
+  <img src="/Images/Chairs_rgb0.1.png">
 </p>
 <p align = "center">
 <b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle and the image after adding noise or 0.1 on red, green and blue channels (right). All images shown are from before being restored by the network) . </b>
