@@ -121,7 +121,7 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" width="420"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="420"/>
+  <img src="/Images/chairs_or_m8.jpg" width="410"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="410"/>
 </p>
 <p align = "center">
 <b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
@@ -136,7 +136,7 @@ The process of adding noise has been already described above in [SECTION__LINK].
 Three different adjustments that change the red, green and blue values in the same way will be shown, from which it has been found that the net does not generalize very well to them. Other adjustments as different images have been investigated with similar results.
 
 <p align="center">
-  <img src="/Images/Chairs_rgb0.1.png">
+  <img src="/Images/Chairs_rgb0.1.png" width="820">
 </p>
 <p align = "center">
 <b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of variance 0.1 on the red, green and blue channels (right). All images shown are from before being restored by the network. </b>
@@ -147,7 +147,7 @@ In Figure.N2 to the left, the unprocessed RAW image can be seen as it would appe
 From this comparison, one might preclude that the neural network would give out exactly the same picture as for an unprocessed picture, but that is unfortunately not true.
 
 <p align="center">
-  <img src="/Images/chairs_rgb0.1m8.jpg" width="380"> <img src="/Images/chairs_rgb0.0m8.jpg" width="380">
+  <img src="/Images/chairs_rgb0.1m8.jpg" width="410"> <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
 </p>
 <p align = "center">
 <b> Fig.N3 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
@@ -156,7 +156,7 @@ From this comparison, one might preclude that the neural network would give out 
 It can be seen that in the restored image in Figure.N3 to the left all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear.
 
 <p align="center">
-  <img src="/Images/Chairs_rgb0.5.png" height="380">
+  <img src="/Images/Chairs_rgb0.5.png">
 </p>
 <p align = "center">
 <b> Fig.N4 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of variance 0.5 on the red, green and blue channels (right). All images shown are from before being restored by the network. </b>
@@ -166,7 +166,7 @@ As can be seen above in Figure.N4, increasing the added noise to a 0.5 variance 
 The added noise can best be seen in the white area of the window next to the bike. A light hue of red is laid over the originally white area.
 
 <p align="center">
-  <img src="/Images/chairs_rgb0.5m8.jpg" height="380">
+  <img src="/Images/chairs_rgb0.5m8.jpg" width="410">
 </p>
 <p align = "center">
 <b> Fig.N5 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. </b>
