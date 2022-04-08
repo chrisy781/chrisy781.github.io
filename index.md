@@ -121,7 +121,7 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" width="400"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="400"/>
+  <img src="/Images/chairs_or_m8.jpg" width="410"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="410"/>
 </p>
 <p align = "center">
 <b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
@@ -149,14 +149,12 @@ From this comparison, one might preclude that the neural network would give out 
 <p align="center">
   <img src="/Images/chairs_rgb0.1m8.jpg" width="380"> <img src="/Images/chairs_rgb0.0m8.jpg" width="380">
 </p>
-
-It can be seen that in the restored image all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear. 
-
-<p align="center">
-  <img src="/Images/chairs_rgb0.0m8.jpg" height="380">
+<p align = "center">
+<b> Fig.N1 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
 </p>
 
-See above the restored image without added noise.
+
+It can be seen that in the restored image all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear.
 
 <p align="center">
   <img src="/Images/Chairs_rgb0.5.png" height="380">
