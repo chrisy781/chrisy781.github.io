@@ -121,10 +121,10 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" height="280"/>  <img src="/Images/chairs_rgb0.0m8.jpg" height="280"/>
+  <img src="/Images/chairs_or_m8.jpg" height="250"/>  <img src="/Images/chairs_rgb0.0m8.jpg" height="250"/>
 </p>
 <p align = "center">
-<b> Fig.N1 - Original image restored with the network of Lamba et al. (on the left) and the restored image after being converted by our code without making adjustments to the image. </b>
+<b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
 </p>
 
 Before we can conclude any insights from the results we get it is important to validate that the effect of our changes to the code do not affect the output if no changes have been made to the input. The two images above show that the original output (top) and the unprocessed output of our added code (lower) are exactly the same.
