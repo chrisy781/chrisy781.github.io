@@ -121,7 +121,7 @@ The following section will describe the findings of how the deep learning archit
 ### Zero input validation
 
 <p align="center">
-  <img src="/Images/chairs_or_m8.jpg" width="380"/>  <img src="/Images/chairs_rgb0.0m8.jpg" width="380"/>
+  <img src="/Images/chairs_or_m8.jpg"/>  <img src="/Images/chairs_rgb0.0m8.jpg"/>
 </p>
 <p align = "center">
 <b> Fig.N1 - Original image restored with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image (right image). </b>
@@ -139,15 +139,15 @@ Three different adjustments that change the red, green and blue values in the sa
   <img src="/Images/Chairs_rgb0.1.png">
 </p>
 <p align = "center">
-<b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle and the image after adding noise or 0.1 on red, green and blue channels (right). All images shown are from before being restored by the network) . </b>
+<b> Fig.N2 - Original unprocessed image opened with raxpy postprocess (left), original unprocessed image opened with our parameters (middle) and the image after adding a noise of 0.1 on the red, green and blue channels (right). All images shown are from before being restored by the network) . </b>
 </p>
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
-To the left, the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code before any changes have been made to it. Slight differences can be detected between these two rightmost pictures. This comes from the fact that we had to tune the parameters for conversion ourselves for the middle image, whereas the standard programs included in opencv _OR RAWPY??_ perform a little better. The right-most image is showing the RGB image after the noise of 0.1 variance on a standard distribution over the entire colour spectrum has been added. It can be seen that the two rightmost images appear visually exactly the same. 
+In Figure.N2 to the left, the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code before any changes have been made to it. Slight differences can be detected between these two rightmost pictures. This comes from the fact that we had to tune the parameters for conversion ourselves for the middle image, whereas the standard programs included in RAWPY perform a little better. The right-most image is showing the RGB image after the noise of 0.1 variance on a standard distribution over the entire colour spectrum has been added. It can be seen that the two rightmost images appear visually exactly the same. 
 From this comparison, one might preclude that the neural network would give out exactly the same picture as for an unprocessed picture, but that is unfortunately not true.
 
 <p align="center">
-  <img src="/Images/chairs_rgb0.1m8.jpg" height="380">
+  <img src="/Images/chairs_rgb0.1m8.jpg" width="380"> <img src="/Images/chairs_rgb0.0m8.jpg" width="380">
 </p>
 
 It can be seen that in the restored image all features can still be seen in their original colour and shape. Yet the restored image is slightly more grainy or pixellated than the input image has been. Comparing it to the same restored image, but then without added RGB noise, the difference in clarity becomes clear. 
