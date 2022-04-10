@@ -46,17 +46,125 @@ Parameters used for this scaling (like minimum and maximum bayer range correspon
 
 In the rgb spectrum, intuitive changes can now be applied to the image. Possible preprocessing adaptations are explained in the chapters below. The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
 
-[HIER NOG DE CODE TOEVOEGEN?]
 ```markdown
-- Bulleted
-- List
 
-1. Numbered
-2. List
+####################################################################################
+                            HELPER FUNCTIONS
+####################################################################################
 
-**Bold** and _Italic_ and `Code` text
+# return indexes of array that represent a specific color
+def color_pixels(raw_color_index):
+    red     = np.array(raw_color_index==0)
+    green1  = np.array(raw_color_index==1)
+    blue    = np.array(raw_color_index==2)
+    green2  = np.array(raw_color_index==3)
+    green   = green1 | green2
+    return red, green1, blue, green2
+   
 
-[Link](url) and ![Image](src)
+# scale values of array in interval [min,max] to range, which for color is [0,255]
+def scale_array(x, min, max, range=1):
+    x[x < min] = min
+    x[x > max] = max
+    scaled = (x-min)/(max-min)*range
+    return scaled
+    
+# convert array of bayer valuse into rgb values
+def bayer2rgb_array(x, min, max, range, wb):
+    scaled_color = scale_array(x, min, max, range)
+    true_color = scaled_color*wb
+    return true_color.astype(int)
+
+# defines a bunch of parameters which (can) help with the conversion from bayer to rgb. Can still be improved.
+def set_parameters(raw, img):
+    rgb2xyz_matrix = raw.rgb_xyz_matrix
+    xyz2rgb_matrix = np.linalg.inv(rgb2xyz_matrix[[0,1,2],:])
+
+    max_color = np.amax(img)
+    min_color = np.amin(img)
+    average_color = np.average(img)
+
+    sat_vals = raw.camera_white_level_per_channel
+    sat_r, sat_g1, sat_b, sat_g2 = sat_vals
+
+    white_balance = np.array(raw.camera_whitebalance)
+    wb_r, wb_g1, wb_b, wb_g2 = white_balance/max(white_balance)
+    wb_g = (wb_g1 + wb_g2)/2
+    wb_r, wb_g, wb_b = 1, 1, 1                # 1.5, 0.8, 1
+    wb = [wb_r, wb_g, wb_b] # white balance of different colors
+
+    r_min, r_max = 512, 523.3
+    g_min, g_max = 512, 535
+    b_min, b_max = 512, 520.3
+    cmin = [r_min, g_min, b_min] # minimimum (=dark) pixel value in bayer image 
+    cmax = [r_max, g_max, b_max] # maximum (=saturated) pixel value in bayer image
+    
+    return wb, cmin, cmax
+
+# ensure all rgb values are in range [0,255]
+def apply_bounds(rgb):
+    rgb[rgb<0] = 0
+    rgb[rgb>255] = 0
+    return rgb
+    
+ 
+####################################################################################
+                                     MAIN
+####################################################################################
+def part_init(train_files):
+
+    bins = np.float32((np.logspace(0,8,128, endpoint=True, base=2.0)-1))/255.0
+    weights5 = define_weights(5)
+    train_list = []
+    
+    for i in range(len(train_files)):
+
+        #----------------------------
+        # EXTRACT DATA FROM RAW FILE
+        #----------------------------
+        raw = rawpy.imread(train_files[i])
+        img = raw.raw_image_visible.astype(np.float32).copy()
+        
+        #------------------------------
+        # CONVERT BAYER INTO R, G and B
+        #------------------------------
+        # define image parameters used for conversion
+        params = set_parameters(raw, img) 
+        wb, cmin, cmax = params          
+        wb_r, wb_g, wb_b = wb             
+        r_min, g_min, b_min = cmin
+        r_max, g_max, b_max = cmax
+
+        # define color indexes
+        raw_color_index = raw.raw_colors_visible
+        color_indexes = color_pixels(raw_color_index)
+        red, green1, blue, green2 = color_indexes
+
+        # retrieve values per color from bayer array
+        rgb_shape = (int(img.shape[0]/2),int(img.shape[1]/2))
+        r  = np.reshape(img[red],    rgb_shape)
+        g1 = np.reshape(img[green1], rgb_shape)
+        g2 = np.reshape(img[green2], rgb_shape)
+        b  = np.reshape(img[blue],   rgb_shape)
+        g = (g1+g2)/2
+
+        # convert to rgb values
+        r = bayer2rgb_array(r, r_min, r_max, range=255, wb=wb_r)
+        g = bayer2rgb_array(g, g_min, g_max, range=255, wb=wb_g)
+        b = bayer2rgb_array(b, b_min, b_max, range=255, wb=wb_b)
+
+        # convert to rgb image
+        rgb_original = cv2.merge([r, g, b])
+        rgb_original = apply_bounds(rgb_original)
+        
+        # plot result
+        f = plt.figure()
+        f.add_subplot(1,2,1)
+        plt.imshow(rgb_postprocess)
+        f.add_subplot(1,2, 2)
+        plt.imshow(rgb_original)
+        plt.show()
+    
 ```
 
 #### (B) Adding noise code snippet
@@ -98,17 +206,65 @@ Syntax highlighted code block
 
 #### (C) RGB to RAW conversion code
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 ```markdown
-- Bulleted
-- List
 
-1. Numbered
-2. List
+####################################################################################
+                            HELPER FUNCTIONS
+####################################################################################
 
-**Bold** and _Italic_ and `Code` text
+# exact oposite operation from scale_array
+def descale_array(scaled, min, max, range=1):
+    # color = (bayer-min)/(max-min)*range
+    x = scaled*(max-min)/range #+min
+    return x
+    
+# convert array of rgb values to bayer values
+def rgb2bayer_array(true_color, min, max, range, wb):
+    scaled_color = true_color/wb
+    x = descale_array(scaled_color, min, max, range)
+    return x    
 
-[Link](url) and ![Image](src)
+# convert applied rgb changes back to bayer spectrum
+def rgbchanges2bayer(rgb_change, img, params):
+    r_changes = rgb_change[:,:,0]
+    g_changes = rgb_change[:,:,1]
+    b_changes = rgb_change[:,:,2]
+
+    wb, cmin, cmax = params
+    wb_r, wb_g, wb_b = wb
+    r_min, g_min, b_min = cmin
+    r_max, g_max, b_max = cmax
+
+    r_bayer_changes = rgb2bayer_array(r_changes, r_min, r_max, 255, wb_r)
+    g_bayer_changes = rgb2bayer_array(g_changes, g_min, g_max, 255, wb_g)
+    b_bayer_changes = rgb2bayer_array(b_changes, b_min, b_max, 255, wb_b)
+
+    bayer_changes = [r_bayer_changes, g_bayer_changes, b_bayer_changes]
+
+    return bayer_changes
+    
+    
+    
+####################################################################################
+                                     MAIN
+####################################################################################
+... continues from previous code             
+        
+        #---------------------------------------------
+        # APPLY CHANGES TO BAYER, CONVERT RGB TO BAYER
+        #---------------------------------------------
+
+        rgb_change = rgb - rgb_original
+        bayer_changes = rgbchanges2bayer(rgb_change, img, params)
+
+        r_bayer_changes, g_bayer_changes, b_bayer_changes = bayer_changes
+        red_index, green1_index, blue_index, green2_index = color_indexes
+
+        img = add_bayer(img, red_index, r_bayer_changes)
+        img = add_bayer(img, green1_index, g_bayer_changes)
+        img = add_bayer(img, blue_index, b_bayer_changes)
+        img = add_bayer(img, green2_index, g_bayer_changes)
+    
 ```
 
 Text here
