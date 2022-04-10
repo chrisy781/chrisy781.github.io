@@ -14,15 +14,13 @@ On this page we will give an overview of our reproduction efforts of the orginal
 Text here
 (what, why, method, research goals)
 
-## Introduction
+## Introduction and motivation
 
-Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist and often consist of some sort of deep learning architecture [SOURCE] but there's one main problem with this type of architures namely their high computational costs which on itself leads a slow way of operating these methods. This makes most of the existing methods for low-light image enhancement non-practical solutions. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
+Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist but are often focussed on targetting restauration quality, this come at the expense of computational speed and that makes most of the existing methods for low-light image enhancement non-practical solutions [1]. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
 In this blog post we will test the sensitivity of the researcher's model to variances applied to the input images. In other words how robust is the model created by reseachers? 
 
-This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The reason for choosing both noise and brightness as variances to the input image is because of the following: first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on these output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjsutment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input image is brightened up. Our reproduciblity project will thus be focussed on the pre-processing phase. The incentive for this form of reproducibility project is the growing concern in the Deep Learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. [SOURCE?] 
-Miss ook nog woordje WE weghalen, dat staat vgm in de writing guideline...
+This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The reason for choosing both noise and brightness as variances to the input image is because of the following: first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on these output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjsutment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input image is brightened up. In short, pictures may in practice also conatin noise and certainly will differ greatly in brightness that's in essence makes this type of pre-processing research releveant and is the primairy motivation for our research. In doing so this research will also adress the growing concern in the Deep Learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
 
-(incl. motivation)
 
 ## Method
 
@@ -220,10 +218,6 @@ Syntax highlighted code block
 
 For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
-### Jekyll Themes
+## Sources
+[1] Restoring Extremely Dark Images in Real-Time (M. Lamba & K. Mitra, 2021)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/chrisy781/chrisy781.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
