@@ -179,7 +179,7 @@ g = add_noise(g, 0.5)
 b = add_noise(b, 0.5)
 ```
 
-#### (B) Adding brightness code snippet
+#### (C) Adding brightness code snippet
 
 The goal of manipulating brigthness of the test input images is to check the robustness and generalization of the model already trained by the researchers.
 The original purpose of the developed method by the researchers is to 'restore' dark images. This raises the question how the model would handle input images that are already bright. Does the model overcompensate when increasing intensity of the image, degrading the quality of the image rather than improving it? 
@@ -215,8 +215,7 @@ Please see the operations in code below
 
 After the manipulation of the brightness of the image, the image is converted to bayer filter encoding before being fed to the network
 
-
-### RGB to RAW conversion code
+#### (D) RGB to RAW conversion code
 
 The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
 
