@@ -66,7 +66,7 @@ In the rgb spectrum, intuitive changes can now be applied to the image. Possible
 
 #### (B) Adding noise code snippet
 
-Below an excerpt of the code for adding noise shows the approach that was taking to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. fThe pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
+In the RGB spectrum, intuitive changes can be applied to the image. Below an excerpt of the code for adding noise shows the approach that was taking to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. The pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
 
 ```markdown
 def add_noise(color, scale):
@@ -146,6 +146,7 @@ Three different adjustments that change the red, green and blue values in the sa
 
 Firstly an added noise of 0.1 variance on a standard distribution to the input image has been found undetectable by the human eye, even when zooming in with a multiple of three the input image visually appears completely the same as the original image. 
 In Figure.N2 to the left, the unprocessed RAW image can be seen as it would appear when opened with a conventional program. In the middle is the image after being converted to RGB format by our code before any changes have been made to it. Slight differences can be detected between these two rightmost pictures. This comes from the fact that we had to tune the parameters for conversion ourselves for the middle image, whereas the standard programs included in RAWPY perform a little better. The right-most image is showing the RGB image after the noise of 0.1 variance on a standard distribution over the entire colour spectrum has been added. It can be seen that the two rightmost images appear visually exactly the same. 
+
 From this comparison, one might preclude that the neural network would give out exactly the same picture as for an unprocessed picture, but that is unfortunately not true.
 
 <p align="center">
@@ -175,6 +176,7 @@ The added noise can best be seen in the white area of the window next to the bik
 </p>
 
 When using this as an input image for the network the pixellation becomes now strongly visible in the output as can be seen in Figure.N5 above. 
+
 At a variance of 1 the features within the image start to be obscured by the noise and further increasing the variance leads to the output becoming more and more pixellated until no feature can be recognized anymore at a variance of 3. 
 
 In their published paper 'Restoring Extremely Dark Images in Real Time' M. Lamba and K. Mitra claim that their method 'generalizes better than the state-of-the-art' methods of other researchers without training. 
