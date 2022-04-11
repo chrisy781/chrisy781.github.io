@@ -1,6 +1,5 @@
 # Group 11 Reproduction Extremely Dark Images Project
 On this page we will give an overview of our reproduction efforts of the orginal research paper called "Restoring Extremely Dark Images in Real Time".
-This reproducibilty project is made by Dries Borstlap (student number: ?), Georg Strunck (student number: ?), Koen van Vlijmen (student number: ?) and Christiaan Wiers (student number: 4715340)
 
 ## The content of our reproduction looks as follows
 * Abstract 
@@ -20,7 +19,7 @@ Text here
 Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist but are often focussed on targetting restauration quality, this come at the expense of computational speed and that makes most of the existing methods for low-light image enhancement non-practical solutions [1]. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
 In this blog post we will test the sensitivity of the researcher's model to variances applied to the input images. In other words how robust is the model created by reseachers? 
 
-This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The reason for choosing both noise and brightness as variances to the input image is because of the following: first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on these output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjsutment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input image is brightened up. In short, pictures may in practice also conatin noise and certainly will differ greatly in brightness that's in essence makes this type of pre-processing research releveant and is the primairy motivation for our research. In doing so this research will also adress the growing concern in the Deep Learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
+This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The reason for choosing both noise and brightness as variances to the input image is because of the following: first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on these output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjustment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input image is brightened up. In short, pictures may in practice also contain noise and certainly will differ greatly in brightness that's in essence makes this type of pre-processing research releveant and is the primairy motivation for our research. In doing so this research will also adress the growing concern in the Deep Learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
 
 
 ## Method
@@ -44,132 +43,24 @@ This pattern repeats over the full width and height of the image. Retrieving col
 The bayer encoded image sadly does not work with strict values between 0 and 255, but rather a range between 0 and 65536 (16 bit), with the vast majority of numbers are being packed in the range [410,440]. A scaled distribution correction is used to transform all bayer values from the 16 bit bayer range to the 8 bit rgb spectrum.
 Parameters used for this scaling (like minimum and maximum bayer range corresponding to 0 and 255 in the rgb spectrum) are fine-tuned, so that rgb converted images resemble almost perfectly the 'processed' raw images that photographic software would yield.
 
+In the rgb spectrum, intuitive changes can now be applied to the image. Possible preprocessing adaptations are explained in the chapters below. The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
 
+[HIER NOG DE CODE TOEVOEGEN?]
 ```markdown
+- Bulleted
+- List
 
-####################################################################################
-                            HELPER FUNCTIONS
-####################################################################################
+1. Numbered
+2. List
 
-# return indexes of array that represent a specific color
-def color_pixels(raw_color_index):
-    red     = np.array(raw_color_index==0)
-    green1  = np.array(raw_color_index==1)
-    blue    = np.array(raw_color_index==2)
-    green2  = np.array(raw_color_index==3)
-    green   = green1 | green2
-    return red, green1, blue, green2
-   
+**Bold** and _Italic_ and `Code` text
 
-# scale values of array in interval [min,max] to range, which for color is [0,255]
-def scale_array(x, min, max, range=1):
-    x[x < min] = min
-    x[x > max] = max
-    scaled = (x-min)/(max-min)*range
-    return scaled
-    
-# convert array of bayer valuse into rgb values
-def bayer2rgb_array(x, min, max, range, wb):
-    scaled_color = scale_array(x, min, max, range)
-    true_color = scaled_color*wb
-    return true_color.astype(int)
-
-# defines a bunch of parameters which (can) help with the conversion from bayer to rgb. Can still be improved.
-def set_parameters(raw, img):
-    rgb2xyz_matrix = raw.rgb_xyz_matrix
-    xyz2rgb_matrix = np.linalg.inv(rgb2xyz_matrix[[0,1,2],:])
-
-    max_color = np.amax(img)
-    min_color = np.amin(img)
-    average_color = np.average(img)
-
-    sat_vals = raw.camera_white_level_per_channel
-    sat_r, sat_g1, sat_b, sat_g2 = sat_vals
-
-    white_balance = np.array(raw.camera_whitebalance)
-    wb_r, wb_g1, wb_b, wb_g2 = white_balance/max(white_balance)
-    wb_g = (wb_g1 + wb_g2)/2
-    wb_r, wb_g, wb_b = 1, 1, 1                # 1.5, 0.8, 1
-    wb = [wb_r, wb_g, wb_b] # white balance of different colors
-
-    r_min, r_max = 512, 523.3
-    g_min, g_max = 512, 535
-    b_min, b_max = 512, 520.3
-    cmin = [r_min, g_min, b_min] # minimimum (=dark) pixel value in bayer image 
-    cmax = [r_max, g_max, b_max] # maximum (=saturated) pixel value in bayer image
-    
-    return wb, cmin, cmax
-
-# ensure all rgb values are in range [0,255]
-def apply_bounds(rgb):
-    rgb[rgb<0] = 0
-    rgb[rgb>255] = 0
-    return rgb
-    
- 
-####################################################################################
-                                     MAIN
-####################################################################################
-def part_init(train_files):
-
-    bins = np.float32((np.logspace(0,8,128, endpoint=True, base=2.0)-1))/255.0
-    weights5 = define_weights(5)
-    train_list = []
-    
-    for i in range(len(train_files)):
-
-        #----------------------------
-        # EXTRACT DATA FROM RAW FILE
-        #----------------------------
-        raw = rawpy.imread(train_files[i])
-        img = raw.raw_image_visible.astype(np.float32).copy()
-        
-        #------------------------------
-        # CONVERT BAYER INTO R, G and B
-        #------------------------------
-        # define image parameters used for conversion
-        params = set_parameters(raw, img) 
-        wb, cmin, cmax = params          
-        wb_r, wb_g, wb_b = wb             
-        r_min, g_min, b_min = cmin
-        r_max, g_max, b_max = cmax
-
-        # define color indexes
-        raw_color_index = raw.raw_colors_visible
-        color_indexes = color_pixels(raw_color_index)
-        red, green1, blue, green2 = color_indexes
-
-        # retrieve values per color from bayer array
-        rgb_shape = (int(img.shape[0]/2),int(img.shape[1]/2))
-        r  = np.reshape(img[red],    rgb_shape)
-        g1 = np.reshape(img[green1], rgb_shape)
-        g2 = np.reshape(img[green2], rgb_shape)
-        b  = np.reshape(img[blue],   rgb_shape)
-        g = (g1+g2)/2
-
-        # convert to rgb values
-        r = bayer2rgb_array(r, r_min, r_max, range=255, wb=wb_r)
-        g = bayer2rgb_array(g, g_min, g_max, range=255, wb=wb_g)
-        b = bayer2rgb_array(b, b_min, b_max, range=255, wb=wb_b)
-
-        # convert to rgb image
-        rgb_original = cv2.merge([r, g, b])
-        rgb_original = apply_bounds(rgb_original)
-        
-        # plot result
-        f = plt.figure()
-        f.add_subplot(1,2,1)
-        plt.imshow(rgb_postprocess)
-        f.add_subplot(1,2, 2)
-        plt.imshow(rgb_original)
-        plt.show()
-    
+[Link](url) and ![Image](src)
 ```
 
 #### (B) Adding noise code snippet
 
-
-In the rgb spectrum, intuitive changes can be applied to the image. Below an excerpt of the code for adding noise shows the approach that was taking to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. fThe pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
+Below an excerpt of the code for adding noise shows the approach that was taking to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. fThe pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
 
 ```markdown
 def add_noise(color, scale):
@@ -185,91 +76,39 @@ b = add_noise(b, 0.5)
 
 #### (B) Adding brightness code snippet
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-```markdown
-Syntax highlighted code block
+The goal of manipulating brigthness of the test input images is to check the robustness and generalization of the model already trained by the researchers.
+The original purpose of the developed method by the researchers is to 'restore' dark images. This raises the question how the model would handle input images that are already bright. Does the model overcompensate when increasing intensity of the image, degrading the quality of the image rather than improving it? 
+Moreover, we are interested in the performance of the model for images that have significant variance of brighthness across the image.
 
-# Header 1
-## Header 2
-### Header 3
+In order to visually compare the performance of the model to changes in brightness, we opted for the manipulating the brightness of an existing image and feed both the original and the manipulated image to the network. This approach allows us to visually compare the output images of the same input images, with different brightness levels. 
 
-- Bulleted
-- List
+As explained above, the encrypted RAW input images are copied and converted to RGB after which the images can be edited. Two operations to manipulate the brightness:
+1. Add an integer value to the intensity of all pixels, uniform across RGB channels.
+2. Add an integer value to the intensity of a local subset of the pixels, uniform across RGB channels
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-#### (C) RGB to RAW conversion code
-The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
+Please see the operations in code below
 
 ```markdown
 
-####################################################################################
-                            HELPER FUNCTIONS
-####################################################################################
+#The function to change the brightness of an RGB image by 'value' uniformly across all pixels of the image
+#Input: 'rgb' is the image as an rgb array. 'value' is the integer value that is added to the original pixel values 
+#Output: returns the adjusted image as an rgb array
 
-# exact oposite operation from scale_array
-def descale_array(scaled, min, max, range=1):
-    # color = (bayer-min)/(max-min)*range
-    x = scaled*(max-min)/range #+min
-    return x
-    
-# convert array of rgb values to bayer values
-def rgb2bayer_array(true_color, min, max, range, wb):
-    scaled_color = true_color/wb
-    x = descale_array(scaled_color, min, max, range)
-    return x    
+        def change_brightness(rgb, value):
+            rgb_new = np.where((255 - rgb) < value, 255, rgb + value)
+            return rgb_new
 
-# convert applied rgb changes back to bayer spectrum
-def rgbchanges2bayer(rgb_change, img, params):
-    r_changes = rgb_change[:,:,0]
-    g_changes = rgb_change[:,:,1]
-    b_changes = rgb_change[:,:,2]
+#The function to change the brightness of an RGB image by 'value',  the left hand side half of the image
+#Input: 'rgb' is the image as an rgb array. 'value' is the integer value that is added to the original pixel values 
+#Output: returns the adjusted image as an rgb array
 
-    wb, cmin, cmax = params
-    wb_r, wb_g, wb_b = wb
-    r_min, g_min, b_min = cmin
-    r_max, g_max, b_max = cmax
-
-    r_bayer_changes = rgb2bayer_array(r_changes, r_min, r_max, 255, wb_r)
-    g_bayer_changes = rgb2bayer_array(g_changes, g_min, g_max, 255, wb_g)
-    b_bayer_changes = rgb2bayer_array(b_changes, b_min, b_max, 255, wb_b)
-
-    bayer_changes = [r_bayer_changes, g_bayer_changes, b_bayer_changes]
-
-    return bayer_changes
-    
-    
-    
-####################################################################################
-                                     MAIN
-####################################################################################
-... continues from previous code             
-        
-        #---------------------------------------------
-        # APPLY CHANGES TO BAYER, CONVERT RGB TO BAYER
-        #---------------------------------------------
-
-        rgb_change = rgb - rgb_original
-        bayer_changes = rgbchanges2bayer(rgb_change, img, params)
-
-        r_bayer_changes, g_bayer_changes, b_bayer_changes = bayer_changes
-        red_index, green1_index, blue_index, green2_index = color_indexes
-
-        img = add_bayer(img, red_index, r_bayer_changes)
-        img = add_bayer(img, green1_index, g_bayer_changes)
-        img = add_bayer(img, blue_index, b_bayer_changes)
-        img = add_bayer(img, green2_index, g_bayer_changes)
-    
+        def change_brightness_LH(rgb, value):
+            rgb_new = rgb
+            rgb_new[:,:int(rgb.shape[1]/2),:] = np.where((255 - rgb) < value,255, rgb+value)[:,:int(rgb.shape[1]/2),:]
+            return rgb_new
 ```
 
-Text here
-(incl. code snippets)
+After the manipulation of the brightness of the image, the image is converted to bayer filter encoding before being fed to the network
 
 ## (5) Results 
 
@@ -337,15 +176,53 @@ In our work we have tried and tested different images and noise settings with si
 
 ### Addition of Brightness
 
+<p align="center">
+  <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
+</p>
+<p align = "center">
+<b> Fig.N6 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
+</p>
+
+
+
 ## Discussion
-In this reproducibility project two different types of variances are added to the input images in order to check the robustness of the model produced by the researchers. The addition of noise showed a very disturbed and unrealistic output image which shows indicates that the researches model is not well resistant to noise variances. This may be due to the researchers model being trained on high quality images, possibly also having very little differences in quality between the images in that speficic training dataset. We suspect the model to be so well trained to a specific standard of image quality that these results got are due to the model not being able to handle the added random noise variance. 
-The brightness addition showed no real changes 
+
+Text here
 
 ## Conclusion
 
 Text here
 (what did we see and what did we expect)
 
+## Welcome to GitHub Pages
+
+You can use the [editor on GitHub](https://github.com/chrisy781/chrisy781.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
+
+Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+
+### Markdown
+
+Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+
+```markdown
+Syntax highlighted code block
+
+# Header 1
+## Header 2
+### Header 3
+
+- Bulleted
+- List
+
+1. Numbered
+2. List
+
+**Bold** and _Italic_ and `Code` text
+
+[Link](url) and ![Image](src)
+```
+
+For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
 ## Sources
 [1] Restoring Extremely Dark Images in Real-Time (M. Lamba & K. Mitra, 2021)
