@@ -215,6 +215,75 @@ Please see the operations in code below
 
 After the manipulation of the brightness of the image, the image is converted to bayer filter encoding before being fed to the network
 
+
+### RGB to RAW conversion code
+
+The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
+
+```markdown
+####################################################################################
+                            HELPER FUNCTIONS
+####################################################################################
+
+# exact oposite operation from scale_array
+def descale_array(scaled, min, max, range=1):
+    # color = (bayer-min)/(max-min)*range
+    x = scaled*(max-min)/range #+min
+    return x
+    
+# convert array of rgb values to bayer values
+def rgb2bayer_array(true_color, min, max, range, wb):
+    scaled_color = true_color/wb
+    x = descale_array(scaled_color, min, max, range)
+    return x    
+
+# convert applied rgb changes back to bayer spectrum
+def rgbchanges2bayer(rgb_change, img, params):
+    r_changes = rgb_change[:,:,0]
+    g_changes = rgb_change[:,:,1]
+    b_changes = rgb_change[:,:,2]
+
+    wb, cmin, cmax = params
+    wb_r, wb_g, wb_b = wb
+    r_min, g_min, b_min = cmin
+    r_max, g_max, b_max = cmax
+
+    r_bayer_changes = rgb2bayer_array(r_changes, r_min, r_max, 255, wb_r)
+    g_bayer_changes = rgb2bayer_array(g_changes, g_min, g_max, 255, wb_g)
+    b_bayer_changes = rgb2bayer_array(b_changes, b_min, b_max, 255, wb_b)
+
+    bayer_changes = [r_bayer_changes, g_bayer_changes, b_bayer_changes]
+
+    return bayer_changes
+    
+    
+    
+####################################################################################
+                                     MAIN
+####################################################################################
+... continues from previous code             
+        
+        #---------------------------------------------
+        # APPLY CHANGES TO BAYER, CONVERT RGB TO BAYER
+        #---------------------------------------------
+
+        rgb_change = rgb - rgb_original
+        bayer_changes = rgbchanges2bayer(rgb_change, img, params)
+
+        r_bayer_changes, g_bayer_changes, b_bayer_changes = bayer_changes
+        red_index, green1_index, blue_index, green2_index = color_indexes
+
+        img = add_bayer(img, red_index, r_bayer_changes)
+        img = add_bayer(img, green1_index, g_bayer_changes)
+        img = add_bayer(img, blue_index, b_bayer_changes)
+        img = add_bayer(img, green2_index, g_bayer_changes)
+
+```
+
+
+
+
+
 ## (5) Results 
 
 The following section will describe the findings of how the deep learning architecture generalizes to images which differ from the dataset that has been trained for. First the previously shown method to add red, green and blue noise to the image and after that the addition of brightness to the image will be used to see if the output of the net improves the quality again, stays the same or worsens it.
@@ -289,70 +358,6 @@ In our work we have tried and tested different images and noise settings with si
 <p align = "center">
 <b> Fig.N6 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
 </p>
-
-### RGB to RAW conversion code
-
-The final feature of our code allows us to retrieve applied changes in the rgb spectrum. Using the precise inverse of operations used to convert raw (bayer) to rgb, one can convert rgb back to raw (bayer). The changes in raw (bayer) are added to the original bayer image, and used as input for the neural network.
-
-```markdown
-####################################################################################
-                            HELPER FUNCTIONS
-####################################################################################
-
-# exact oposite operation from scale_array
-def descale_array(scaled, min, max, range=1):
-    # color = (bayer-min)/(max-min)*range
-    x = scaled*(max-min)/range #+min
-    return x
-    
-# convert array of rgb values to bayer values
-def rgb2bayer_array(true_color, min, max, range, wb):
-    scaled_color = true_color/wb
-    x = descale_array(scaled_color, min, max, range)
-    return x    
-
-# convert applied rgb changes back to bayer spectrum
-def rgbchanges2bayer(rgb_change, img, params):
-    r_changes = rgb_change[:,:,0]
-    g_changes = rgb_change[:,:,1]
-    b_changes = rgb_change[:,:,2]
-
-    wb, cmin, cmax = params
-    wb_r, wb_g, wb_b = wb
-    r_min, g_min, b_min = cmin
-    r_max, g_max, b_max = cmax
-
-    r_bayer_changes = rgb2bayer_array(r_changes, r_min, r_max, 255, wb_r)
-    g_bayer_changes = rgb2bayer_array(g_changes, g_min, g_max, 255, wb_g)
-    b_bayer_changes = rgb2bayer_array(b_changes, b_min, b_max, 255, wb_b)
-
-    bayer_changes = [r_bayer_changes, g_bayer_changes, b_bayer_changes]
-
-    return bayer_changes
-    
-    
-    
-####################################################################################
-                                     MAIN
-####################################################################################
-... continues from previous code             
-        
-        #---------------------------------------------
-        # APPLY CHANGES TO BAYER, CONVERT RGB TO BAYER
-        #---------------------------------------------
-
-        rgb_change = rgb - rgb_original
-        bayer_changes = rgbchanges2bayer(rgb_change, img, params)
-
-        r_bayer_changes, g_bayer_changes, b_bayer_changes = bayer_changes
-        red_index, green1_index, blue_index, green2_index = color_indexes
-
-        img = add_bayer(img, red_index, r_bayer_changes)
-        img = add_bayer(img, green1_index, g_bayer_changes)
-        img = add_bayer(img, blue_index, b_bayer_changes)
-        img = add_bayer(img, green2_index, g_bayer_changes)
-
-```
 
 
 ## Discussion
