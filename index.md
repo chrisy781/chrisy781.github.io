@@ -133,7 +133,7 @@ Before we can conclude any insights from the results we get it is important to v
 
 ### Addition of Noise
 
-The process of adding noise has been already described above in [SECTION__LINK]. It basically includes first converting the raw image to a RGB image, for which the colour values can be adjusted and then fed back in Bayer format to the neural network.
+The process of adding noise has been already described above in the section "Adding noise code snippet". It basically includes first converting the raw image to a RGB image, for which the colour values can be adjusted and then fed back in Bayer format to the neural network.
 
 Three different adjustments that change the red, green and blue values in the same way will be shown, from which it has been found that the net does not generalize very well to them. Other adjustments as different images have been investigated with similar results.
 
