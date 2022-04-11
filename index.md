@@ -1,5 +1,5 @@
 # Group 11 Reproduction Extremely Dark Images Project
-On this page we will give an overview of our reproduction efforts of the orginal research paper called "Restoring Extremely Dark Images in Real Time".
+On this page we will give an overview of our reproduction efforts of the orginal research paper called “Restoring Extremely Dark Images in Real Time” (M. Lamba & K. Mitra, 2021). This reproducibilty project is made by Dries Borstlap (student number: ?), Georg Strunck (student number: ?), Koen van Vlijmen (student number: ?) and Christiaan Wiers (student number: 4715340)
 
 ## The content of our reproduction looks as follows
 * Abstract 
