@@ -16,12 +16,12 @@ Text here
 
 ## Introduction and motivation
 
-Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist but are often focussed on targetting restoration quality, this come at the expense of computational speed and that makes most of the existing methods for low-light image enhancement non-practical solutions [1]. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
-In this blog post we will test the sensitivity of the researcher's model to variances applied to the input images. In other words how robust is the model created by reseachers? 
+Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist but are often focussed on targetting restoration quality, this comes at the expense of computational speed and that makes most of the existing methods for low-light image enhancement non-practical solutions [1]. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
+In this blog post we will test the sensitivity of the researcher's model to variances applied to the input images. In other words how robust is the model created by the reseachers? 
 
 This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The aforementioned reults in our two research goals: 
 1) Adding (or removing) noise to the input image (in the pre-processing phase) and see it's influence on the output quality of the researchers model.
-2) Quantifying different brightness levels of input pictures and relating that the output quality of the researchers model. 
+2) Quantifying different brightness levels of input pictures and relating that to the output quality of the researchers model. 
 
 The reason for choosing both noise and brightness as variances to the input image is in short because we want to analyze the model's robustness because pictures may in practice also contain noise and certainly will differ greatly in brightness so that's in essence what makes this type of pre-processing research releveant. This type of research also adresses the growing concern in the deep learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
 
@@ -165,7 +165,7 @@ def part_init(train_files):
 
 #### (B) Adding noise code snippet
 
-In the RGB spectrum, intuitive changes can be applied to the image. Below an excerpt of the code for adding noise shows the approach that was taking to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. The pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
+In the RGB spectrum, intuitive changes can be applied to the image. Below an excerpt of the code for adding noise shows the approach that was taken to add red, green or blue noise pixels to the image. It takes the matrix of all eg. red pixels of the image and adds random red pixels to the matrix from a normal distribution. The pixel location in the image is included with the location in the matrix. The same counts for green and blue. In order to make similar changes in all three colours, thus R, G and B, noise has to be added to all three matrices.
 
 ```markdown
 def add_noise(color, scale):
