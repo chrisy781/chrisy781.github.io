@@ -19,7 +19,13 @@ Text here
 Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist but are often focussed on targetting restauration quality, this come at the expense of computational speed and that makes most of the existing methods for low-light image enhancement non-practical solutions [1]. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
 In this blog post we will test the sensitivity of the researcher's model to variances applied to the input images. In other words how robust is the model created by reseachers? 
 
-This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The reason for choosing both noise and brightness as variances to the input image is because of the following: first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on these output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjustment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input image is brightened up. In short, pictures may in practice also contain noise and certainly will differ greatly in brightness that's in essence makes this type of pre-processing research releveant and is the primairy motivation for our research. In doing so this research will also adress the growing concern in the Deep Learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
+This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The aforementioned reults in our two research goals: 
+1) Adding (or removing) noise to the input image (in the pre-processing phase) and see it's influence on the output quality of the researchers model.
+2) Quantifying different brightness levels of input pictures and relating that the output quality of the researchers model. 
+
+The reason for choosing both noise and brightness as variances to the input image is in short because we want to analyze the model's robustness because pictures may in practice also contain noise and certainly will differ greatly in brightness so that's in essence what makes this type of pre-processing research releveant. This type of research also adresses the growing concern in the deep learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
+
+The reason for testing the model on the addition of noise and brightness to the input images is because first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on the output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjustment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input images are brightened up.
 
 
 ## Method
@@ -184,45 +190,15 @@ In our work we have tried and tested different images and noise settings with si
 </p>
 
 
-
 ## Discussion
+In this reproducibility project two different types of variances (noise and brightness) are added to the input images in order to check the robustness of the model produced by the researchers. The addition of noise showed a very disturbed and unrealistic output image which indicates that the researches model is not well resistant to noise variances. This may be due to the researchers model being trained on high quality images, possibly also having very little differences in quality between the images in that speficic training dataset. We suspect the model to be so well trained to a specific type of image quality that the disturbed results we got are due to the model not being able to handle the added random noise variance. 
 
-Text here
+The brightness addition showed no real changes in output quality, even a significant addition of brightness to the input image resulted in only a minor difference in the output image compared to a "normal" input image being used. We believe this is because the brightness of images used in the training dataset also differed and therefore the model is able to handle different input brightnesses in a proper way. 
 
 ## Conclusion
+Returning to the motivation of our research namely testing the model's robustness and checking whether this research actually provides a smart solution or if it's rather a form of parameter tuning and overfitting that has taken place? Looking at our research goals, we found that addition of noise to the input image impacted the output images in a really negative way. Which may imply that the model shows signs of overfitting and parameter tuning and/or that the model is trained using a not well diversified dataset (e.g. only contain the images with the same quality). At the same time this may also be the result of a little diversified training dataset being used by the reseachers. The addition of brightness to the input images returned output images only slightly differing from the output images resulted from the "original" input images. Suggesting that the model recognizes an already bright image and not making that image overly bright. 
+In short, the results are really an dubble edged sword with noise addition being process badly by the model but the addition of brightness being handled in a good way. For now we conclude the model not being very robust mostly because of it's bad performance when only little noise is added. Relevant additional research may be done on  verifying the what extend the images from the training dataset are diversified in term of different images qualities (including noisy pictures) and checking wheter the magnitude of brightness also differs within the training dataset. In case the above is not the case, it would be interesting to see how to model's robustness performs when the model is retrained using a well diversified training dataset.
 
-Text here
-(what did we see and what did we expect)
-
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/chrisy781/chrisy781.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
 ## Sources
 [1] Restoring Extremely Dark Images in Real-Time (M. Lamba & K. Mitra, 2021)
