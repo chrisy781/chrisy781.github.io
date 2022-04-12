@@ -386,7 +386,7 @@ If we consider the restored images with locally increased brigthness (image N9),
 </p>
 <p align = "center">
 <b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 on the LHS half of the picture
-
+</p>
 
 ## Discussion
 In this reproducibility project two different types of variances (noise and brightness) are added to the input images in order to check the robustness of the model produced by the researchers. The addition of noise showed a very disturbed and unrealistic output image which indicates that the researches model is not well resistant to noise variances. This may be due to the researchers model being trained on high quality images, possibly also having very little differences in quality between the images in that speficic training dataset. We suspect the model to be so well trained to a specific type of image quality that the disturbed results we got are due to the model not being able to handle the added random noise variance. 
