@@ -354,7 +354,7 @@ In our work we have tried and tested different images and noise settings with si
 As explained in the method section, the input image is manipulated to increase its brightness. This is increased by a rgb pixel value of 50 (out of a 0-255 range), at every pixel, uniformly across the RGB channels. As you can see in Image N6, the image becomes brighter, but also seems to lose some contrast. 
 
 <p align="center">
-  ![Original_vs_brightInput](https://user-images.githubusercontent.com/80898178/162650299-5a4d79d3-25e4-4c3f-8d3b-8bb91255e3f9.png)
+  <img src="/Images/Original_vs_brightInput.png" width="410">
 </p>
 <p align = "center">
 <b> Fig.N6 - Original image of chairs after conversion to RGB (left), the original image with an increased brightness (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
@@ -363,7 +363,7 @@ As explained in the method section, the input image is manipulated to increase i
 If we compare the restored images of both the original image and the image with increased brigthness, you will observe that the model has increased the brightness of the bright input image and the restored image is a few shades more bright vs the restored image of the original picture (on the right-hand-side). The qualtity of the brightened image is lower than the restored image of the original picture (more grainy)
 
 <p align="center">
-  ![img_num_0_m_8 0](https://user-images.githubusercontent.com/80898178/162650082-af8c502a-e351-4e12-96ef-7e5d5d63a551.jpg)
+  <img src="/Images/chairs_rgb0.1m8.jpg" width="410"> <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
 </p>
 <p align = "center">
 <b> Fig.N7 - Restored image after feeding the image with increased brigthness pixel value of 50 after restoration with the network of Lamba et al. (left image) and the restored image after feeding the original image (right image). </b>
@@ -372,23 +372,23 @@ If we compare the restored images of both the original image and the image with 
 Now we aply the brightness adjustment discussed above locally, on one half of the image. See the result in image N8.
 
 <p align="center">
-  <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
-  ![Original_vs_brightInputv2](https://user-images.githubusercontent.com/80898178/162651151-a407dc8b-8da6-4281-84a4-c61a5c3c1abf.png)
+  <img src="/Images/Original_vs_brightInput(cat).png" width="410">
+  <img src="/Images/Original_vs_brightInputv2.png" width="410">
 </p>
 <p align = "center">
-<b> Fig.N6 - Image with added noise of variance 0.1 on the red, green and blue channels after restoration with the network of Lamba et al. (left image) and the restored image after being converted by our code without making adjustments to the image for comparison (right image). </b>
-<b> Fig.N8 - Original image of chairs after conversion to RGB (left), the original image with an increased brightness on the left hand side (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
+<b> Fig.N8 - Original images after conversion to RGB (left), the original images with an increased brightness on the left hand side (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
 </p>
+
 
 If we compare the restored images of both the original image and the image with increased brigthness, it 
 you will observe that the model has increased the brightness of the bright input image and the restored image is a few shades more bright vs the restored image of the original picture (on the right-hand-side). The qualtity of the brightened image is lower than the restored image of the original picture (more grainy)
 
 <p align="center">
-  ![img_num_0_m_8 0](https://user-images.githubusercontent.com/80898178/162650082-af8c502a-e351-4e12-96ef-7e5d5d63a551.jpg)
+  <img src="/Images/img_num_0_m_8.0.jpg" width="410">
+  <img src="/Images/img_num_2_m_8.0.jpg" width="410">  
 </p>
 <p align = "center">
-<b> Fig.N9 - Restored image after feeding the image with increased brigthness pixel value of 50 after restoration with the network of Lamba et al. (left image) and the restored image after feeding the original image (right image). </b>
-</p>
+<b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al.
 
 
 
