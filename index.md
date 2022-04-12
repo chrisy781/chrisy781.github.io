@@ -360,7 +360,7 @@ As explained in the method section, the input image is manipulated to increase i
 <b> Fig.N6 - Original image of chairs after conversion to RGB (left), the original image with an increased brightness (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
 </p>
 
-If we compare the restored images of both the original image and the image with increased brigthness, you will observe that the model has increased the brightness of the bright input image and the restored image is a few shades more bright vs the restored image of the original picture (on the right-hand-side). The qualtity of the brightened image is lower than the restored image of the original picture
+If we compare the restored images of both the original image and the image with increased brigthness, the restored image of the 'brightened' input image looks as it has lost a lot of the contrast vs the restored image of the original picture (on the right-hand-side). For both pictures, darker parts of the image, especially in the background, are now more visible vs the original. The overall aesthetic quality of the 'brightened' image after restoration considerably worse than the quality of the restored original.
 
 <p align="center">
   <img src="/Images/Bright_restored_image.jpg" width="410"> <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
@@ -370,10 +370,6 @@ If we compare the restored images of both the original image and the image with 
 </p>
 
 Now we aply the brightness adjustment discussed above locally, on one half of the image. See the result in image N8.
-
-<p align="center">
-  <img src="/Images/Original_vs_brightInputv2.png">
-</p>
 
 <p align="center">
   <img src="/Images/Original_vs_brightInput(cat).png">
