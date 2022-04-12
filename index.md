@@ -385,7 +385,7 @@ If we consider the restored images with locally increased brigthness (image N9),
   <img src="/Images/img_num_2_m_15.jpg" width="410">  
 </p>
 <p align = "center">
-<b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al  
+<b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 on the LHS half of the picture
 
 
 ## Discussion
