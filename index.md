@@ -381,8 +381,8 @@ Now we aply the brightness adjustment discussed above locally, on one half of th
 If we consider the restored images with locally increased brigthness (image N9), you will observe that the model has not restored the images to one uniform brightness, but the bright and original half are still clearly distinguisable. 
 
 <p align="center">
-  <img src="/Images/img_num_0_m_15.0.jpg" width="410">
-  <img src="/Images/img_num_2_m_15.0.jpg" width="410">  
+  <img src="/Images/img_num_0_m_15.jpg" width="410">
+  <img src="/Images/img_num_2_m_15.jpg" width="410">  
 </p>
 <p align = "center">
 <b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al  
