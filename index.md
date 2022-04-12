@@ -372,8 +372,11 @@ If we compare the restored images of both the original image and the image with 
 Now we aply the brightness adjustment discussed above locally, on one half of the image. See the result in image N8.
 
 <p align="center">
-  <img src="/Images/Original_vs_brightInput(cat).png" width="410">
   <img src="/Images/Original_vs_brightInputv2.png" width="410">
+</p>
+
+<p align="center">
+  <img src="/Images/Original_vs_brightInput(cat).png" width="410">
 </p>
 <p align = "center">
 <b> Fig.N8 - Original images after conversion to RGB (left), the original images with an increased brightness on the left hand side (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
@@ -387,13 +390,12 @@ you will observe that the model has increased the brightness of the bright input
   <img src="/Images/img_num_0_m_8.0.jpg" width="410">
 </p>
 <p align = "center">
-<b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al.
-
 <p align="center">
   <img src="/Images/img_num_2_m_8.0.jpg" width="410">  
 </p>
+
 <p align = "center">
-<b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al  
+<b> Fig.N10 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al  
 
 
 ## Discussion
