@@ -354,16 +354,16 @@ In our work we have tried and tested different images and noise settings with si
 As explained in the method section, the input image is manipulated to increase its brightness. This is increased by a rgb pixel value of 50 (out of a 0-255 range), at every pixel, uniformly across the RGB channels. As you can see in Image N6, the image becomes brighter, but also seems to lose some contrast. 
 
 <p align="center">
-  <img src="/Images/Original_vs_brightInput.png" width="410">
+  <img src="/Images/Original_vs_brightInput.png">
 </p>
 <p align = "center">
 <b> Fig.N6 - Original image of chairs after conversion to RGB (left), the original image with an increased brightness (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
 </p>
 
-If we compare the restored images of both the original image and the image with increased brigthness, you will observe that the model has increased the brightness of the bright input image and the restored image is a few shades more bright vs the restored image of the original picture (on the right-hand-side). The qualtity of the brightened image is lower than the restored image of the original picture (more grainy)
+If we compare the restored images of both the original image and the image with increased brigthness, you will observe that the model has increased the brightness of the bright input image and the restored image is a few shades more bright vs the restored image of the original picture (on the right-hand-side). The qualtity of the brightened image is lower than the restored image of the original picture
 
 <p align="center">
-  <img src="/Images/chairs_rgb0.1m8.jpg" width="410"> <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
+  <img src="/Images/Bright_restored_image.jpg" width="410"> <img src="/Images/chairs_rgb0.0m8.jpg" width="410">
 </p>
 <p align = "center">
 <b> Fig.N7 - Restored image after feeding the image with increased brigthness pixel value of 50 after restoration with the network of Lamba et al. (left image) and the restored image after feeding the original image (right image). </b>
@@ -372,29 +372,24 @@ If we compare the restored images of both the original image and the image with 
 Now we aply the brightness adjustment discussed above locally, on one half of the image. See the result in image N8.
 
 <p align="center">
-  <img src="/Images/Original_vs_brightInputv2.png" width="820">
+  <img src="/Images/Original_vs_brightInputv2.png">
 </p>
 
 <p align="center">
-  <img src="/Images/Original_vs_brightInput(cat).png" width="820">
+  <img src="/Images/Original_vs_brightInput(cat).png">
 </p>
 <p align = "center">
 <b> Fig.N8 - Original images after conversion to RGB (left), the original images with an increased brightness on the left hand side (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
 </p>
 
-
-If we compare the restored images of both the original image and the image with increased brigthness, it 
-you will observe that the model has increased the brightness of the bright input image and the restored image is a few shades more bright vs the restored image of the original picture (on the right-hand-side). The qualtity of the brightened image is lower than the restored image of the original picture (more grainy)
+If we consider the restored images with locally increased brigthness (image N9), you will observe that the model has not restored the images to one uniform brightness, but the bright and original half are still clearly distinguisable. 
 
 <p align="center">
   <img src="/Images/img_num_0_m_8.0.jpg" width="410">
   <img src="/Images/img_num_2_m_8.0.jpg" width="410">  
-
 </p>
 <p align = "center">
-
-<p align = "center">
-<b> Fig.N10 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al  
+<b> Fig.N9 - Restored images after feeding the images with increased brigthness pixel value of 50 after restoration with the network of Lamba et al  
 
 
 ## Discussion
