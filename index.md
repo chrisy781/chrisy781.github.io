@@ -171,7 +171,7 @@ The goal of manipulating brigthness of the test input images is to check the rob
 The original purpose of the developed method by the researchers is to 'restore' dark images. This raises the question how the model would handle input images that are already bright. Does the model overcompensate when increasing intensity of the image, degrading the quality of the image rather than improving it? 
 Moreover, we are interested in the performance of the model for images that have significant variance of brighthness across the image.
 
-In order to visually compare the performance of the model to changes in brightness, we opted for the manipulating the brightness of an existing image and feed both the original and the manipulated image to the network. This approach allows us to visually compare the output images of the same input images, with different brightness levels. 
+In order to visually compare the performance of the model to changes in brightness, we opted for manipulating the brightness of an existing image and feeding both the original and the manipulated image to the network. This approach allows us to visually compare the output images of the same input images, with different brightness levels. 
 
 As explained above, the encrypted RAW input images are copied and converted to RGB after which the images can be edited. Two operations to manipulate the brightness:
 1. Add an integer value to the intensity of all pixels, uniform across RGB channels.
