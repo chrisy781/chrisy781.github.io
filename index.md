@@ -343,7 +343,7 @@ As explained in the method section, the input image is manipulated to increase i
   <img src="/Images/Original_vs_brightInput.png">
 </p>
 <p align = "center">
-<b> Fig.N6 - Original image of chairs after conversion to RGB (left), the original image with an increased brightness (+50 out of max 0-255 value range)(right). All images shown are from before being restored by the network. </b>
+<b> Fig.N6 - Original image of chairs after conversion to RGB (left), the original image with an increased brightness (+50 out of max 0-255 value range) (right). All images shown are from before being restored by the network. </b>
 </p>
 
 If we compare the restored images of both the original image and the image with increased brigthness, the restored image of the 'brightened' input image looks as it has lost a lot of the contrast vs the restored image of the original picture (on the right-hand-side). For both pictures, darker parts of the image, especially in the background, are now more visible vs the original. The overall aesthetic quality of the 'brightened' image after restoration considerably worse than the quality of the restored original.
