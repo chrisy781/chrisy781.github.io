@@ -1,29 +1,16 @@
 # Group 11 Reproduction Extremely Dark Images Project
 On this page we will give an overview of our reproduction efforts of the orginal research paper called “Restoring Extremely Dark Images in Real Time” (M. Lamba & K. Mitra, 2021). This reproducibilty project is made by Dries Borstlap (student number: 4648099), Georg Strunck (student number: 4680421), Koen van Vlijmen (student number: 4337832) and Christiaan Wiers (student number: 4715349)
 
-## The content of our reproduction looks as follows
-* Abstract 
-* Introduction 
-* Method 
-* Results 
-* Discussion
-* Conculsion 
-
-## Abstract
-
-Text here
-(what, why, method, research goals)
-
 ## Introduction and motivation
 
 Over the years a lot of good methods for low-light image enhancement have been developed. The methods to do so thus actually exist but are often focussed on targetting restoration quality, this comes at the expense of computational speed and that makes most of the existing methods for low-light image enhancement non-practical solutions [1]. In the paper "Restoring Extremely Dark Images in Real-Time" (M. Lamba & K. Mitra, 2021) a fast and memory efficient solution is presented which at the same time produces proper quality (light enhanced) images. 
 In this blog post we will test the sensitivity of the researcher's model to variances applied to the input images. In other words how robust is the model created by the reseachers? 
 
-This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The aforementioned reults in our two research goals: 
+This will be done by applying variances (noise and brightness) to the input images and visually analizing the impact this may have on the quality of the model's output images. The aforementioned results in our two research goals: 
 1) Adding (or removing) noise to the input image (in the pre-processing phase) and see it's influence on the output quality of the researchers model.
 2) Quantifying different brightness levels of input pictures and relating that to the output quality of the researchers model. 
 
-The reason for choosing both noise and brightness as variances to the input image is in short because we want to analyze the model's robustness because pictures may in practice also contain noise and certainly will differ greatly in brightness so that's in essence what makes this type of pre-processing research releveant. This type of research also adresses the growing concern in the deep learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
+The reason for choosing both noise and brightness as variances to the input image is in short because we want to analyze the model's robustness since pictures may in practice also contain noise and certainly will differ greatly in brightness so that's in essence what makes this type of pre-processing research releveant. This type of research also adresses the growing concern in the deep learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
 
 The reason for testing the model on the addition of noise and brightness to the input images is because first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on the output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjustment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input images are brightened up.
 
