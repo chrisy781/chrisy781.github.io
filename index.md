@@ -337,7 +337,7 @@ In our work we have tried and tested different images and noise settings with si
 
 ### Addition of Brightness
 
-As explained in the method section, the input image is manipulated to increase its brightness. This is increased by a rgb pixel value of 50 (out of a 0-255 range), at every pixel, uniformly across the RGB channels. As you can see in Image N6, the image becomes brighter, but also seems to lose some contrast. 
+As explained in the method section, the input image is manipulated to increase it's brightness. This is increased by a rgb pixel value of 50 (out of a 0-255 range), at every pixel, uniformly across the RGB channels. As you can see in Image N6, the image becomes brighter, but also seems to lose some contrast. 
 
 <p align="center">
   <img src="/Images/Original_vs_brightInput.png">
