@@ -12,8 +12,7 @@ This will be done by applying variances (noise and brightness) to the input imag
 
 The reason for choosing both noise and brightness as variances to the input image is in short because we want to analyze the model's robustness since pictures may in practice also contain noise and certainly will differ greatly in brightness so that's in essence what makes this type of pre-processing research releveant. This type of research also adresses the growing concern in the deep learning community when it comes to parameter tuning and overfitting in order to improve results instead of coming up with smart / out of the box improvements. 
 
-The reason for testing the model on the addition of noise and brightness to the input images is because first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on the output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjustment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input images are brightened up.
-
+The reason for testing the model on the addition of noise and brightness to the input images is because first of all, both methods of variance allow us to check the model's sensitivity in an easy to control manner, by gradually increasing these variances and analyze it's influence on the output images. Secondly, noise is chosen as a variance because this addition of a random distruption to the input image allows us to analyse how well the model can handle this type of random variance. Lastly, the adjustment of brightness is chosen because it allows us to see how the researcher's model performs when the (dark) input images are brightened up. 
 
 ## Method
 
