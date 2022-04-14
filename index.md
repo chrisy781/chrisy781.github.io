@@ -16,7 +16,7 @@ The reason for testing the model on the addition of noise and brightness to the 
 
 ## Method
 
-Before going into to more detail, we try to give a structured overview of the additional code we made in order to test the sensitivy of the researcher's model to varying inputs. 
+Before going into to more detail, we will try to give a structured overview of the additional code we made in order to test the sensitivy of the researcher's model to varying inputs. 
 It starts with the RAW input image which is converted - in process A - to a RGB image which is plotted (step 2). In process B we use code to make the modifications to the (RGB) image. This modified RGB image is also plotted (step 3) and is later converted back to a RAW file in process C. This modified RAW images is plotted as well (step 4) in order to make sure the conversion from RGB to RAW was done succesfully. Finally this RAW file from step 4, is used process D - this is the original model from the paper - the final result is a JPEG file (step 5).
 
 <p align="left">
